@@ -1,9 +1,10 @@
 import { Link } from "react-router-dom";
+import { useState } from "react";
 import { motion } from "framer-motion";
-import { Leaf, Droplets, WheatOff, Heart, ArrowRight } from "lucide-react";
+import { Leaf, Droplets, WheatOff, Heart, ArrowRight, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { products } from "@/data/products";
+import { products, Product } from "@/data/products";
 import { useSEO } from "@/hooks/use-seo";
 import heroBg from "@/assets/hero-bg.jpg";
 
@@ -21,6 +22,7 @@ const fadeUp = {
 
 const Index = () => {
   useSEO("home");
+  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
 
   return (
     <main>
@@ -160,38 +162,79 @@ const Index = () => {
                 viewport={{ once: true }}
                 variants={fadeUp}
               >
-                <Link to="/produtos">
-                  <motion.div
-                    whileHover={{ y: -12, rotateZ: 2 }}
-                    transition={{ type: "spring", stiffness: 400, damping: 25 }}
-                  >
-                    <Card className="group overflow-hidden border-none shadow-md hover:shadow-2xl transition-shadow cursor-pointer h-full">
-                      <div className={`h-32 md:h-40 ${p.bgClass} overflow-hidden relative`}>
-                        <motion.img
-                          src={p.image}
-                          alt={p.name}
-                          className="h-full w-full object-cover"
-                          whileHover={{ scale: 1.2 }}
-                          transition={{ duration: 0.5 }}
-                        />
-                        <motion.div
-                          className="absolute inset-0 bg-gradient-to-t from-foreground/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end justify-center p-2"
-                          initial={{ opacity: 0 }}
-                          whileHover={{ opacity: 1 }}
-                        >
-                          <span className="text-background font-bold text-sm">Ver mais</span>
-                        </motion.div>
-                      </div>
-                      <CardContent className="p-4 text-center bg-primary/15">
-                        <h3 className="font-bold text-foreground">{p.name}</h3>
-                        <p className="text-xs text-muted-foreground mt-1">{p.weight}</p>
-                      </CardContent>
-                    </Card>
-                  </motion.div>
-                </Link>
+                <motion.div
+                  whileHover={{ y: -12, rotateZ: 2 }}
+                  transition={{ type: "spring", stiffness: 400, damping: 25 }}
+                  onClick={() => setSelectedProduct(p)}
+                  className="cursor-pointer"
+                >
+                  <Card className="group overflow-hidden border-none shadow-md hover:shadow-2xl transition-shadow h-full">
+                    <div className={`h-32 md:h-40 ${p.bgClass} overflow-hidden relative`}>
+                      <motion.img
+                        src={p.image}
+                        alt={p.name}
+                        className="h-full w-full object-cover"
+                        whileHover={{ scale: 1.2 }}
+                        transition={{ duration: 0.5 }}
+                      />
+                      <motion.div
+                        className="absolute inset-0 bg-gradient-to-t from-foreground/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end justify-center p-2"
+                        initial={{ opacity: 0 }}
+                        whileHover={{ opacity: 1 }}
+                      >
+                        <span className="text-background font-bold text-sm">Ver mais</span>
+                      </motion.div>
+                    </div>
+                    <CardContent className="p-4 text-center bg-primary/15">
+                      <h3 className="font-bold text-foreground">{p.name}</h3>
+                      <p className="text-xs text-muted-foreground mt-1">{p.weight}</p>
+                    </CardContent>
+                  </Card>
+                </motion.div>
               </motion.div>
             ))}
           </motion.div>
+          {selectedProduct && (
+            <div
+              className="fixed inset-0 z-50 flex items-center justify-center bg-foreground/70 backdrop-blur-sm p-4"
+              onClick={() => setSelectedProduct(null)}
+            >
+              <div
+                className="relative w-full max-w-2xl rounded-3xl overflow-hidden bg-card shadow-2xl"
+                onClick={(event) => event.stopPropagation()}
+              >
+                <div className={`h-48 ${selectedProduct.bgClass} overflow-hidden relative`}>
+                  <img src={selectedProduct.image} alt={selectedProduct.name} className="h-full w-full object-cover" />
+                  <button
+                    className="absolute top-4 right-4 inline-flex h-10 w-10 items-center justify-center rounded-full bg-card/80 text-foreground hover:bg-card"
+                    onClick={() => setSelectedProduct(null)}
+                  >
+                    <X size={18} />
+                  </button>
+                </div>
+                <div className="p-6">
+                  <h2 className="text-2xl font-display font-bold text-foreground mb-3">{selectedProduct.name}</h2>
+                  <p className="text-muted-foreground mb-4">{selectedProduct.description}</p>
+                  <div className="grid grid-cols-2 gap-3 text-sm mb-5">
+                    {[
+                      ["Calorias", selectedProduct.nutrition.calories],
+                      ["Carboidratos", selectedProduct.nutrition.carbs],
+                      ["Proteínas", selectedProduct.nutrition.protein],
+                      ["Gorduras", selectedProduct.nutrition.fat],
+                      ["Fibras", selectedProduct.nutrition.fiber],
+                      ["Vitamina C", selectedProduct.nutrition.vitaminC],
+                    ].map(([label, value]) => (
+                      <div key={label} className="rounded-2xl bg-primary/5 p-3">
+                        <span className="block text-muted-foreground text-xs">{label}</span>
+                        <span className="block font-semibold text-foreground">{value}</span>
+                      </div>
+                    ))}
+                  </div>
+                  <p className="text-sm font-semibold text-primary">Embalagem: {selectedProduct.weight}</p>
+                </div>
+              </div>
+            </div>
+          )}
           <motion.div
             className="text-center mt-10"
             initial={{ opacity: 0 }}

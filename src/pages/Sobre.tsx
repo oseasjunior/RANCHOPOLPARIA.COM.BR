@@ -10,7 +10,11 @@ const fadeUp = {
 
 const iconVariants = {
   initial: { scale: 0, rotate: -180 },
-  animate: { scale: 1, rotate: 0, transition: { type: "spring", stiffness: 100, damping: 15 } },
+  animate: { 
+    scale: 1, 
+    rotate: 0,
+    transition: { type: "spring" as const, stiffness: 100, damping: 15 }
+  },
 };
 
 const values = [
@@ -53,6 +57,7 @@ const Sobre = () => {
                 initial="initial"
                 whileInView="animate"
                 viewport={{ once: true }}
+                transition={{ type: "spring", stiffness: 100, damping: 15 }}
                 className="w-12 h-12 rounded-full bg-secondary/20 flex items-center justify-center shrink-0"
               >
                 <Leaf className="text-secondary" size={24} />
@@ -122,7 +127,7 @@ const Sobre = () => {
                         initial="initial"
                         whileInView="animate"
                         viewport={{ once: true }}
-                        transition={{ delay: i * 0.1 }}
+                        transition={{ type: "spring", stiffness: 100, damping: 15, delay: i * 0.1 }}
                       >
                         <v.icon className="text-primary" size={32} />
                       </motion.div>
@@ -147,6 +152,7 @@ const Sobre = () => {
                 initial="initial"
                 whileInView="animate"
                 viewport={{ once: true }}
+                transition={{ type: "spring", stiffness: 100, damping: 15 }}
                 className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center shrink-0"
               >
                 <MapPin className="text-primary" size={24} />

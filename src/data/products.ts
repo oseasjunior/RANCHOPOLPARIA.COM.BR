@@ -6,6 +6,8 @@ import morangoImg from "@/assets/fruits/morango.jpg";
 import abacaxiImg from "@/assets/fruits/abacaxi.jpg";
 import cajaImg from "@/assets/fruits/caja.jpg";
 import cupuacuImg from "@/assets/fruits/cupuacu.jpg";
+import graviolaImg from "@/assets/fruits/graviola.jpg";
+import umbuImg from "@/assets/fruits/umbu.png";
 
 export interface Product {
   id: string;
@@ -103,6 +105,28 @@ export const products: Product[] = [
     weight: "1kg",
     description: "Polpa de cajá com sabor único do nordeste brasileiro, azedinho e irresistível.",
     nutrition: { calories: "46 kcal", carbs: "11g", protein: "0.6g", fat: "0.3g", fiber: "1g", vitaminC: "28mg" },
+  },
+  {
+    id: "umbu",
+    name: "Umbu",
+    colorClass: "text-foreground",
+    bgClass: "bg-slate-100",
+    emoji: "🍈",
+    image: umbuImg,
+    weight: "1kg",
+    description: "Polpa de umbu integral, 100% fruta e sem conservantes, ideal para sucos e receitas naturais.",
+    nutrition: { calories: "37 kcal", carbs: "9.4g", protein: "0.8g", fat: "0.1g", fiber: "0.8g", vitaminC: "N/A" },
+  },
+  {
+    id: "graviola",
+    name: "Graviola",
+    colorClass: "text-foreground",
+    bgClass: "bg-slate-100",
+    emoji: "🍈",
+    image: graviolaImg,
+    weight: "1kg",
+    description: "Polpa de graviola integral, com sabor suave e refrescante, perfeita para bebidas naturais e sobremesas.",
+    nutrition: { calories: "66 kcal", carbs: "16g", protein: "1.0g", fat: "0.3g", fiber: "2.5g", vitaminC: "N/A" },
   },
   {
     id: "cupuacu",

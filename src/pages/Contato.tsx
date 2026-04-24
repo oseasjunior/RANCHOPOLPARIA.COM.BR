@@ -1,7 +1,9 @@
 import { motion } from "framer-motion";
 import { MapPin, Phone, Mail } from "lucide-react";
+import { useSEO } from "@/hooks/use-seo";
 
 const Contato = () => {
+  useSEO("contato");
 
   return (
     <main className="pt-20 pb-16">

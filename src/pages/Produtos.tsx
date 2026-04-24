@@ -5,6 +5,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { products, Product } from "@/data/products";
+import { useSEO } from "@/hooks/use-seo";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
@@ -23,6 +24,7 @@ const containerVariants = {
 };
 
 const Produtos = () => {
+  useSEO("produtos");
   const [selected, setSelected] = useState<Product | null>(null);
 
   return (

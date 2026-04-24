@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { Leaf, Eye, Target, Heart, MapPin } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
+import { useSEO } from "@/hooks/use-seo";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
@@ -19,6 +20,8 @@ const values = [
 ];
 
 const Sobre = () => {
+  useSEO("sobre");
+
   return (
     <main className="pt-20 pb-16">
       {/* Hero */}

@@ -4,6 +4,7 @@ import { Leaf, Droplets, WheatOff, Heart, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { products } from "@/data/products";
+import { useSEO } from "@/hooks/use-seo";
 import heroBg from "@/assets/hero-bg.jpg";
 
 const highlights = [
@@ -19,6 +20,8 @@ const fadeUp = {
 };
 
 const Index = () => {
+  useSEO("home");
+
   return (
     <main>
       {/* Hero */}
